@@ -1,4 +1,3 @@
-
 # NVIDIA GPU DCGM Exporter Monitoring Stack
 
 ## Repository Highlights
@@ -49,62 +48,58 @@ gpu-monitoring/
 
 ## Quick Start
 
-1. **Clone this repository** and navigate to the project directory.
-2. **Start all services**:
-   ```bash
-   docker compose up -d
-   ```
-3. **Verify services**:
+1. **Install Requirements**
+   - Make sure you have:
+     - [Docker](https://docs.docker.com/get-docker/)
+     - [NVIDIA drivers](https://www.nvidia.com/Download/index.aspx)
+     - [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+
+2. **Download this project**
+   - Click the green "Code" button on GitHub, then "Download ZIP" or use:
+     ```bash
+     git clone https://github.com/yourusername/NVIDIA-DCGM-Exporter.git
+     cd NVIDIA-DCGM-Exporter
+     ```
+
+3. **Start Monitoring**
+   - Run this command in your project folder:
+     ```bash
+     docker compose up -d
+     ```
+
+4. **Open the dashboards**
    - DCGM Exporter: [http://localhost:9400/metrics](http://localhost:9400/metrics)
    - Prometheus: [http://localhost:9090/targets](http://localhost:9090/targets)
-   - Grafana: [http://localhost:3000](http://localhost:3000) (default login: `admin` / `admin`)
+   - Grafana: [http://localhost:3000](http://localhost:3000) (login: `admin` / `admin`)
 
 ---
 
-## Configuration
+## See Your GPU Dashboard
 
-### docker-compose.yaml
-
-Orchestrates the DCGM Exporter, Prometheus, and Grafana containers. GPU access is enabled for the exporter.
-
-### prometheus.yml
-
-Configures Prometheus to scrape metrics from DCGM Exporter every 15 seconds.
+1. In Grafana, click **+** (left menu) → **Import**.
+2. Enter `12239` and click **Load**.
+3. Choose **Prometheus** as the data source.
+4. Click **Import**. Now you can see your GPU stats!
 
 ---
 
-## Importing the NVIDIA DCGM Dashboard
+## Need Help?
 
-### Automatic (Recommended)
-
-1. In Grafana, go to **+ → Import**.
-2. Enter dashboard ID: `12239` and click **Load**.
-3. Select **Prometheus** as the data source and click **Import**.
-
-### Manual
-
-1. Download the dashboard JSON:
-   ```bash
-   curl -o nvidia-dcgm-dashboard.json https://grafana.com/api/dashboards/12239/revisions/1/download
-   ```
-2. In Grafana, go to **+ → Import → Upload JSON file** and select `nvidia-dcgm-dashboard.json`.
-3. Select **Prometheus** as the data source and click **Import**.
+- If you see errors, check that your NVIDIA drivers and Docker are installed.
+- If the dashboard does not load, try to import it manually:
+  1. Download the dashboard:
+     ```bash
+     curl -o nvidia-dcgm-dashboard.json https://grafana.com/api/dashboards/12239/revisions/1/download
+     ```
+  2. In Grafana, click **+ → Import → Upload JSON file** and select the file.
 
 ---
 
-## Troubleshooting
+## Useful Links
 
-- If dashboard import fails with "Need a dashboard JSON model", ensure the Grafana container has internet access or use the manual import method.
-- For persistent data, configure Docker volumes for Prometheus and Grafana.
-- For automated dashboard provisioning, place the dashboard JSON in Grafana's provisioning directory.
-
----
-
-## References
-
-- [NVIDIA DCGM Exporter Documentation](https://docs.nvidia.com/datacenter/dcgm/latest/gpu-telemetry/dcgm-exporter.html)
-- [Prometheus Documentation](https://prometheus.io/docs/introduction/overview/)
-- [Grafana Documentation](https://grafana.com/docs/grafana/latest/)
+- [NVIDIA DCGM Exporter Docs](https://docs.nvidia.com/datacenter/dcgm/latest/gpu-telemetry/dcgm-exporter.html)
+- [Prometheus Docs](https://prometheus.io/docs/introduction/overview/)
+- [Grafana Docs](https://grafana.com/docs/grafana/latest/)
 - [Official Dashboard 12239](https://grafana.com/grafana/dashboards/12239)
 
 ---
