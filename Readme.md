@@ -1,5 +1,17 @@
 
 # NVIDIA GPU DCGM Exporter Monitoring Stack
+## About
+
+This repository provides a comprehensive, production-ready solution for monitoring NVIDIA GPU metrics using open-source tools. By leveraging DCGM Exporter, Prometheus, and Grafana, it enables real-time visibility into GPU performance, health, and utilization. Designed for ease of deployment with Docker Compose, this stack is ideal for data centers, research labs, and anyone seeking robust GPU observability with minimal setup.
+## Repository Highlights
+
+- Real-time NVIDIA GPU monitoring with DCGM Exporter
+- Automated deployment using Docker Compose
+- Pre-configured Prometheus for GPU metrics scraping
+- Ready-to-use Grafana dashboard (ID 12239) for visualization
+- Easy setup and verification steps
+- Troubleshooting and manual dashboard import guidance
+- Extensible for alerting and persistent data storage
 
 <p align="center">
   <img src="img/Screenshot from 2025-05-15 18-12-07.png" alt="NVIDIA DCGM Grafana Dashboard" width="800"/>
