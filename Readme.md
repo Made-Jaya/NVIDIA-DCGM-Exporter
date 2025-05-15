@@ -1,8 +1,9 @@
+
+# NVIDIA GPU DCGM Exporter Monitoring Stack
+
 <p align="center">
   <img src="img/Screenshot from 2025-05-15 18-12-07.png" alt="NVIDIA DCGM Grafana Dashboard" width="800"/>
 </p>
-
-# NVIDIA GPU DCGM Exporter Monitoring Stack
 
 A complete solution for monitoring NVIDIA GPU metrics using DCGM Exporter, Prometheus, and Grafana, orchestrated with Docker Compose. This stack enables real-time visualization of GPU metrics such as temperature, memory usage, and SM utilization.
 
