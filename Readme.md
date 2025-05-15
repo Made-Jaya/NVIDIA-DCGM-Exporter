@@ -18,6 +18,73 @@ A complete solution for monitoring NVIDIA GPU metrics using DCGM Exporter, Prome
 
 ---
 
+## Directory Structure
+
+```
+gpu-monitoring/
+├── docker-compose.yaml
+├── prometheus.yml
+└── nvidia-dcgm-dashboard.json (optional, for manual import)
+```
+
+---
+
+## How to Run and Verify
+
+### 1. Start the Services
+
+In your project directory, run:
+
+```bash
+docker compose up -d
+```
+
+This command will download all required images and start the three containers in detached mode.
+
+---
+
+### 2. Verify the Services
+
+**DCGM Exporter**
+
+Check the metrics endpoint:
+
+```bash
+curl http://localhost:9400/metrics
+```
+
+You should see DCGM metrics (gauge, histogram, etc.) in the output.
+
+**Prometheus**
+
+Open in your browser: [http://localhost:9090/targets](http://localhost:9090/targets)
+
+Make sure the job `dcgm-exporter` is marked as “UP”.
+
+**Grafana**
+
+Open [http://localhost:3000](http://localhost:3000) and log in with `admin` / `admin`.
+
+---
+
+### 3. Add Prometheus Data Source in Grafana
+
+1. In Grafana sidebar: go to **Configuration → Data Sources → Add data source**.
+2. Select **Prometheus**.
+3. For **URL**, enter: `http://prometheus:9090`.
+4. Click **Save & Test**. You should see “Data source is working”.
+
+---
+
+### 4. Import the NVIDIA DCGM Dashboard
+
+1. In Grafana, click the **“+”** icon → **Import**.
+2. Enter `12239` in the “Import via grafana.com” field and click **Load**.
+3. Select **Prometheus** as the data source.
+4. Click **Import**.
+
+The NVIDIA DCGM dashboard will appear, showing GPU metrics like memory usage, temperature, SM utilization, and more.
+
 ## Features
 
 - **Automated deployment** of DCGM Exporter, Prometheus, and Grafana via Docker Compose
@@ -32,54 +99,6 @@ A complete solution for monitoring NVIDIA GPU metrics using DCGM Exporter, Prome
 - **NVIDIA Container Toolkit** installed on the host ([NVIDIA Toolkit Docs](https://github.com/NVIDIA/nvidia-docker))
 - **Docker Engine** and **Docker Compose** (version 3.x or newer)
 - **Latest NVIDIA GPU drivers** and `nvidia-docker2` installed
-
----
-
-## Directory Structure
-
-```
-gpu-monitoring/
-├── docker-compose.yaml
-├── prometheus.yml
-└── nvidia-dcgm-dashboard.json (optional, for manual import)
-```
-
----
-
-## Quick Start
-
-1. **Install Requirements**
-   - Make sure you have:
-     - [Docker](https://docs.docker.com/get-docker/)
-     - [NVIDIA drivers](https://www.nvidia.com/Download/index.aspx)
-     - [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
-
-2. **Download this project**
-   - Click the green "Code" button on GitHub, then "Download ZIP" or use:
-     ```bash
-     git clone https://github.com/yourusername/NVIDIA-DCGM-Exporter.git
-     cd NVIDIA-DCGM-Exporter
-     ```
-
-3. **Start Monitoring**
-   - Run this command in your project folder:
-     ```bash
-     docker compose up -d
-     ```
-
-4. **Open the dashboards**
-   - DCGM Exporter: [http://localhost:9400/metrics](http://localhost:9400/metrics)
-   - Prometheus: [http://localhost:9090/targets](http://localhost:9090/targets)
-   - Grafana: [http://localhost:3000](http://localhost:3000) (login: `admin` / `admin`)
-
----
-
-## See Your GPU Dashboard
-
-1. In Grafana, click **+** (left menu) → **Import**.
-2. Enter `12239` and click **Load**.
-3. Choose **Prometheus** as the data source.
-4. Click **Import**. Now you can see your GPU stats!
 
 ---
 
